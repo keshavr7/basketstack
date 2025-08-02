@@ -1,0 +1,13 @@
+db.sqlite3
+.vscode
+.idea
+.claude
+node_modules/
+__pycache__/
+env
+.python-version
+secrets/
+app/client/build/
+public/*
+app/static/*index-bundle*
+app/static/fe/*

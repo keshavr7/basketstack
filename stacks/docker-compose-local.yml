@@ -1,0 +1,51 @@
+name: ${APP_NAME}
+
+services:
+  web:
+    image: ${APP_NAME}:v${APP_VERSION}
+    command: gunicorn -c web/config/gunicorn.py web.config.wsgi:application
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../app:/code/app
+      - ./secrets/app.ini:/var/run/secrets/app.ini
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    environment:
+      POSTGRES_DB: ${APP_NAME}
+      POSTGRES_USER: ${APP_NAME}
+      POSTGRES_PASSWORD: ${APP_NAME}
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  redis:
+    image: redis:${REDIS_VERSION}
+    volumes:
+      - redis_data:/data
+  
+  celery:
+    image: ${APP_NAME}:v${APP_VERSION}
+    command: celery -A web worker -l info -E
+    volumes:
+      - ../app:/code/app
+      - ./secrets/app.ini:/var/run/secrets/app.ini
+  
+  celery_beat:
+    image: ${APP_NAME}:v${APP_VERSION}
+    command: celery -A web beat -l info --pidfile=/tmp/celerybeat.pid --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - ../app:/code/app
+      - ./secrets/app.ini:/var/run/secrets/app.ini
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  default:
+    attachable: true
