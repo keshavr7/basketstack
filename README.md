@@ -19,10 +19,10 @@ make build
 make up/local
 ```
 
-- Run database migrations (first time only):
+- Apply database migrations (first time only):
 ```
 make exec/web
-python manage.py migrate
+manage migrate
 exit 
 # Restart the stack
 ```
