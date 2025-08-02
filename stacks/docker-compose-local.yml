@@ -3,7 +3,7 @@ name: ${APP_NAME}
 services:
   web:
     image: ${APP_NAME}:v${APP_VERSION}
-    command: gunicorn -c web/config/gunicorn.py web.config.wsgi:application
+    command: uv run gunicorn -c web/config/gunicorn.py web.config.wsgi:application
     ports:
       - "8000:8000"
     volumes:
@@ -30,14 +30,14 @@ services:
   
   celery:
     image: ${APP_NAME}:v${APP_VERSION}
-    command: celery -A web worker -l info -E
+    command: uv run celery -A web worker -l info -E
     volumes:
       - ../app:/code/app
       - ./secrets/app.ini:/var/run/secrets/app.ini
   
   celery_beat:
     image: ${APP_NAME}:v${APP_VERSION}
-    command: celery -A web beat -l info --pidfile=/tmp/celerybeat.pid --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    command: uv run celery -A web beat -l info --pidfile=/tmp/celerybeat.pid --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - ../app:/code/app
       - ./secrets/app.ini:/var/run/secrets/app.ini

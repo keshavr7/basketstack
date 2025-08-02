@@ -1,0 +1,42 @@
+[project]
+name = "django-react-scaffolding"
+version = "0.1.0"
+description = "Django React scaffolding project"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "celery==5.4.0",
+    "dj-database-url==2.3.0",
+    "django-celery-beat==2.7.0",
+    "django-celery-results==2.5.1",
+    "Django==5.1.9",
+    "django-cors-headers==4.7.0",
+    "django-jsoneditor==0.2.4",
+    "djangorestframework==3.15.2",
+    "gunicorn==23.0.0",
+    "ipython==9.0.2",
+    "psycopg2-binary==2.9.10",
+    "redis==5.2.1",
+    "requests==2.32.3",
+    "whitenoise==6.9.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.12.7",
+    "pre-commit>=4.0.0",
+]
+package = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "DJ", # django-specific rules
+]

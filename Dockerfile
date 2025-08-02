@@ -1,7 +1,8 @@
-FROM python:3.11-slim
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV UV_NO_SYNC=1
 
 WORKDIR /code
 
@@ -16,9 +17,11 @@ RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
-COPY requirements.txt /code/
+# Copy Python project files
+COPY pyproject.toml uv.lock /code/
 
-RUN pip install -r requirements.txt
+# Install dependencies (production only)
+RUN uv sync --frozen --no-cache --no-dev
 
 # Copy the rest of your app's source code from your host to your image filesystem.
 COPY ./app /code/app/
@@ -29,4 +32,7 @@ WORKDIR /code/app
 RUN cd client && npm install && npm run commit-to-django && rm -rf node_modules
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+RUN uv run python manage.py collectstatic --noinput
+
+# Create manage alias for convenience
+RUN echo 'alias manage="uv run python manage.py"' >> /root/.bashrc
