@@ -1,9 +1,12 @@
 """
 Django settings for django-query-app project.
 """
+
 import os
-import dj_database_url
 from pathlib import Path
+
+import dj_database_url
+
 from .config import Config
 
 # Initialize config
@@ -92,7 +95,7 @@ if DATABASE_URL:
 
 
 # Memory caches
-REDIS_URL = config('REDIS_URL', 'redis://localhost:6379/0')
+REDIS_URL = config("REDIS_URL", "redis://localhost:6379/0")
 
 
 # Password validation
@@ -100,7 +103,7 @@ REDIS_URL = config('REDIS_URL', 'redis://localhost:6379/0')
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: 501
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -145,15 +148,28 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "%(asctime)s %(processName)s %(process)d %(thread)d %(levelname)s %(module)s %(message)s"
+            "format": (
+                "%(asctime)s %(processName)s %(process)d %(thread)d "
+                "%(levelname)s %(module)s %(message)s"
+            )
         },
-        "normal": {"format": "%(asctime)s <%(process)d> %(levelname)s [%(name)s] (%(module)s) %(message)s"},
-        'tasks': {
-            'format': '%(asctime)s %(processName)s %(levelname)s %(task_name)s %(task_id)s %(module)s %(message)s'
+        "normal": {
+            "format": "%(asctime)s <%(process)d> %(levelname)s [%(name)s] (%(module)s) %(message)s"
+        },
+        "tasks": {
+            "format": (
+                "%(asctime)s %(processName)s %(levelname)s %(task_name)s "
+                "%(task_id)s %(module)s %(message)s"
+            )
         },
     },
     "handlers": {
-        "console": {"level": "DEBUG", "filters": [], "class": "logging.StreamHandler", "formatter": "normal"},
+        "console": {
+            "level": "DEBUG",
+            "filters": [],
+            "class": "logging.StreamHandler",
+            "formatter": "normal",
+        },
     },
     "loggers": {
         "": {
@@ -186,8 +202,7 @@ REST_FRAMEWORK = {
 
 # Celery configuration
 CELERY_BROKER_URL = config("CELERY_BROKER_URL", REDIS_URL)
-if CELERY_BROKER_URL.startswith("rediss"):
-    CELERY_BROKER_USE_SSL = {"ssl_cert_reqs": ssl.CERT_NONE}
+
 # Disable broker connection pooling
 CELERY_BROKER_POOL_LIMIT = config.int("CELERY_BROKER_POOL_LIMIT", 0)
 CELERY_BROKER_TRANSPORT_OPTIONS = {

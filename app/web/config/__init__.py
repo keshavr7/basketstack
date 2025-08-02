@@ -1,11 +1,11 @@
-import os
 import ast
+import os
 
 
 class Config:
-    ENV_PREFIX = 'DJANGO_'
+    ENV_PREFIX = "DJANGO_"
     CONFIG_DIRS = ["/var/run/configs", "/var/run/secrets", "."]  # Added . for local .env support
-    BOOL_TRUE = ['1', 'true', 'yes', 'y']
+    BOOL_TRUE = ["1", "true", "yes", "y"]
 
     def __init__(self):
         self.config = self.get_config()
@@ -58,12 +58,20 @@ class Config:
             return {}
         with open(file_path) as fp:
             return {
-                item[0].strip().strip('"'): item[1].strip().strip('"') 
-                for item in [line.split('=', 1) for line in fp if '=' in line and not line.strip().startswith('#')]
+                item[0].strip().strip('"'): item[1].strip().strip('"')
+                for item in [
+                    line.split("=", 1)
+                    for line in fp
+                    if "=" in line and not line.strip().startswith("#")
+                ]
             }
 
     def get_env_vars_as_dictionary(self):
-        return {k.replace(self.ENV_PREFIX, ''): v for k, v in os.environ.items() if k.startswith(self.ENV_PREFIX)}
+        return {
+            k.replace(self.ENV_PREFIX, ""): v
+            for k, v in os.environ.items()
+            if k.startswith(self.ENV_PREFIX)
+        }
 
     def get_non_django_env_vars_as_dictionary(self):
         return {k: v for k, v in os.environ.items() if not k.startswith(self.ENV_PREFIX)}

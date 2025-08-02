@@ -1,7 +1,7 @@
 include stacks/.env
 
 build:
-	@docker build --no-cache -t ${APP_NAME}:v${APP_VERSION} .
+	@docker build -t ${APP_NAME}:v${APP_VERSION} .
 
 up/local:
 	@docker compose -f stacks/docker-compose-local.yml up -d

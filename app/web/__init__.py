@@ -5,4 +5,4 @@ from __future__ import absolute_import, unicode_literals
 
 from .app_celery import celery_app
 
-__all__ = ('celery_app',)
+__all__ = ("celery_app",)

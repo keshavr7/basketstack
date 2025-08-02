@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
-import os
 import logging
+import os
 
 from celery import Celery
 from celery.signals import setup_logging
@@ -23,6 +23,7 @@ celery_app.config_from_object("django.conf:settings", namespace="CELERY")
 @setup_logging.connect
 def config_loggers(*args, **kwags):
     from logging.config import dictConfig
+
     from django.conf import settings
 
     logging_settings = settings.LOGGING
