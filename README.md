@@ -1,3 +1,15 @@
+# Django React Template
+
+A production-ready web application template with **all batteries included** for modern full-stack development.
+
+- **Backend**: Django with Django REST Framework
+- **Frontend**: React + TypeScript + Vite + Material UI
+- **Database**: PostgreSQL  
+- **Cache & Message Broker**: Redis
+- **Async Tasks**: Celery + Celery Beat (scheduled tasks)
+- **Package Management**: uv (Python) + npm (Node.js)
+- **Dockerized Setup**: Complete development environment with hot reloading
+
 ## Prerequisites
 - Docker (>= 24.0.0)
 - Node.js (>= 18.0.0) for local development
