@@ -1,6 +1,6 @@
-# Django React Template
+# BasketStack
 
-Web application template with **all batteries included** for modern full-stack development.
+**Django** + **React** web application template with batteries included for production-ready full-stack development
 
 - **Backend**: Django with Django REST Framework
 - **Frontend**: React + TypeScript + Vite + Material UI
