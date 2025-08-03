@@ -1,6 +1,6 @@
 # Django React Template
 
-A production-ready web application template with **all batteries included** for modern full-stack development.
+Web application template with **all batteries included** for modern full-stack development.
 
 - **Backend**: Django with Django REST Framework
 - **Frontend**: React + TypeScript + Vite + Material UI
@@ -70,7 +70,7 @@ For active frontend development with hot reloading:
 1. Bring the stack up (ensure `DEBUG` is `True` in `app.ini`)
 ```
 make up/local
-# Code mounts ensures hot reloading for web and celery containers
+# Code mount ensures hot reloading for web and celery containers
 ```
 
 2. In a separate terminal, start the React dev server
