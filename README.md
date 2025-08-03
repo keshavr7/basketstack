@@ -70,7 +70,7 @@ For active frontend development with hot reloading:
 1. Bring the stack up (ensure `DEBUG` is `True` in `app.ini`)
 ```
 make up/local
-# Volume mounts in `docker-compose-local.yml` ensure web and celery containers reflect code changes in real time
+# Code mounts ensures hot reloading for web and celery containers
 ```
 
 2. In a separate terminal, start the React dev server
